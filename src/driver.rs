@@ -57,13 +57,13 @@ pub trait Storage {
     /////
     ///// TODO: We can't actually change this - need to pass on as compile flag
     ///// to the C backend.
-    //type FILENAME_MAX_PLUS_ONE: ArrayLength<u8>;
+    const FILENAME_MAX_PLUS_ONE: usize;
 
     // /// Maximum length of a path plus one. Necessary to convert Rust string slices
     // /// to C strings, which requires an allocation for the terminating
     // /// zero-byte. If in doubt, set to `FILENAME_MAX_PLUS_ONE`.
     // /// Must be larger than `FILENAME_MAX_PLUS_ONE`.
-    // type PATH_MAX_PLUS_ONE: ArrayLength<u8>;
+    const PATH_MAX_PLUS_ONE: usize;
 
     ///// Maximum size of file. Stored in superblock.
     ///// Defaults to 2_147_483_647 (or u31, to avoid sign issues in the C code).
@@ -71,7 +71,7 @@ pub trait Storage {
     /////
     ///// TODO: We can't actually change this - need to pass on as compile flag
     ///// to the C backend.
-    //const FILEBYTES_MAX: usize = ll::LFS_FILE_MAX as _;
+    const FILEBYTES_MAX: usize;
 
     ///// Maximum size of custom attributes.
     ///// Should default to 1_022, but associated type defaults don't exists currently.
@@ -79,7 +79,7 @@ pub trait Storage {
     /////
     ///// TODO: We can't actually change this - need to pass on as compile flag
     ///// to the C backend.
-    //type ATTRBYTES_MAX: ArrayLength<u8>;
+    const ATTRBYTES_MAX: usize;
 
     /// Read data from the storage device.
     /// Guaranteed to be called only with bufs of length a multiple of READ_SIZE.

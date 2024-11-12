@@ -114,20 +114,28 @@ impl<Storage: driver::Storage> Allocation<Storage> {
 
         let cache = Cache::new();
 
-        let filename_max_plus_one: u32 = crate::consts::FILENAME_MAX_PLUS_ONE;
+        // File Name
+        // ——————————
+
+        let filename_max_plus_one: u32 = Storage::FILENAME_MAX_PLUS_ONE as _;
+
         debug_assert!(filename_max_plus_one > 1);
         debug_assert!(filename_max_plus_one <= 1_022 + 1);
         // limitation of ll-bindings
-        debug_assert!(filename_max_plus_one == 255 + 1);
+        // debug_assert!(filename_max_plus_one == 255 + 1);
+
         let path_max_plus_one: u32 = crate::consts::PATH_MAX_PLUS_ONE as _;
         // TODO: any upper limit?
         debug_assert!(path_max_plus_one >= filename_max_plus_one);
-        let file_max = crate::consts::FILEBYTES_MAX;
+
+        let file_max: u32 = Storage::FILEBYTES_MAX as _;
+
         assert!(file_max > 0);
         assert!(file_max <= 2_147_483_647);
         // limitation of ll-bindings
-        assert!(file_max == 2_147_483_647);
-        let attr_max: u32 = crate::consts::ATTRBYTES_MAX;
+        // assert!(file_max == 2_147_483_647);
+        let attr_max: u32 = Storage::ATTRBYTES_MAX as _;
+
         assert!(attr_max > 0);
         assert!(attr_max <= 1_022);
         // limitation of ll-bindings
